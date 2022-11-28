@@ -25,14 +25,15 @@ const handleValidationErrorDB = (err) => {
 
 const sendErrorDev = (err, req, res) => {
   //A) API
-  if (req.originalUrl.startsWith("/api")) {
-    return res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-      error: err,
-      stack: err.stack,
-    });
-  }
+  // if (req.originalUrl.startsWith("/api")) {
+  console.log(err);
+  return res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+    error: err,
+    stack: err.stack,
+  });
+  // }
   // B) Rendered Websites
   // return res.status(err.statusCode).render("error", {
   //   title: "Something went wrong",
