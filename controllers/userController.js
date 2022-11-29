@@ -50,6 +50,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   // create an error if user post password data
+
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
