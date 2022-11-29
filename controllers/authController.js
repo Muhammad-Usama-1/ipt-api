@@ -16,15 +16,13 @@ const signToken = (id, name) =>
 const createSendToken = (user, statusCode, req, res) => {
   // console.log("SECURE--> ", req.secure);
   user.password = undefined;
-  console.log(req);
+  console.log(req.user);
   const token = signToken(user._id, user.name);
   res.status(statusCode).json({
     status: "Success",
     token,
     data: {
       user,
-
-      posts: req.posts,
     },
   });
 };
@@ -51,9 +49,9 @@ exports.login = catchAsync(async (req, res, next) => {
 
   if (!user || !(await user.correctPassword(password, user.password)))
     return next(new AppError("Incorrect email or password", 400));
-  const posts = await Post.find({ user_id: user.id });
+  // const posts = await Post.find({ user_id: user.id });
   // Sending sigin in  User post in request
-  req.posts = posts;
+  // req.posts = posts;
 
   createSendToken(user, 200, req, res);
 });
@@ -73,6 +71,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
+  console.log(token);
 
   if (!token) {
     return next(
@@ -167,6 +166,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 exports.updatePassword = catchAsync(async (req, res, next) => {
   // 1) Get user from collection
   const user = await User.findById(req.user.id).select("+password");
+  console.log(req.body.passwordCurrent);
   if (
     !req.body.passwordCurrent ||
     !req.body.passwordConfirm ||

@@ -15,17 +15,17 @@ const userSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    enum: {
-      values: ["male", "female"],
-      message: "Gender  is either male or female",
-    },
+    // enum: {
+    //   values: ["male", "female"],
+    //   message: "Gender  is either male or female",
+    // },
   },
   maritialStatus: {
     type: String,
-    enum: {
-      values: ["single", "married", "widowed", "divorced", "seperated"],
-      message: `Maritial Status cant be differnet from  "single", "married", "widowed", "divorced", "seperated"`,
-    },
+    // enum: {
+    //   values: ["single", "married", "widowed", "divorced", "seperated"],
+    //   message: `Maritial Status cant be differnet from  "single", "married", "widowed", "divorced", "seperated"`,
+    // },
   },
   dob: {
     type: Date,
