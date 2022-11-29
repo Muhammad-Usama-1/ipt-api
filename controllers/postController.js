@@ -25,3 +25,16 @@ exports.getAllUserPost = catchAsync(async (req, res, next) => {
     posts,
   });
 });
+
+exports.getAllFeed = catchAsync(async (req, res, next) => {
+  //   res.send("post created");
+  // const { text } = req.body;
+  //   const user_id = req.user.id;
+  const feeds = await Post.find();
+  //   res.send("post created");
+  res.status(201).json({
+    status: "Success",
+    // message: "Post succefully created",
+    feeds,
+  });
+});
