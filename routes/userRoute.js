@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const {
   signup,
   login,
@@ -9,10 +9,11 @@ const {
   logout,
   isLoggedIn,
   sendIsLoggedIn,
-} = require('../controllers/authController');
+} = require("../controllers/authController");
 const {
   getAllUsers,
   createUser,
+
   getUser,
   updateUser,
   deleteUser,
@@ -21,27 +22,27 @@ const {
   getMe,
   uploadUserPhoto,
   resizeUserPhoto,
-} = require('../controllers/userController');
-const { restrictTo } = require('../controllers/authController');
+} = require("../controllers/userController");
+const { restrictTo } = require("../controllers/authController");
 
 const userRoute = express.Router();
 
-userRoute.post('/sign-up', signup);
-userRoute.post('/login', login);
-userRoute.get('/logout', logout);
+userRoute.post("/sign-up", signup);
+userRoute.post("/login", login);
+userRoute.get("/logout", logout);
 // For API (client side rendering)
-userRoute.get('/isLoggedIn', isLoggedIn, sendIsLoggedIn);
-userRoute.post('/forgotPassword', forgotPassword);
-userRoute.patch('/resetPassword/:token', resetPassword);
+userRoute.get("/isLoggedIn", isLoggedIn, sendIsLoggedIn);
+userRoute.post("/forgotPassword", forgotPassword);
+userRoute.patch("/resetPassword/:token", resetPassword);
 
 userRoute.use(protect);
-userRoute.get('/me', getMe, getUser);
-userRoute.patch('/updateMe', uploadUserPhoto, resizeUserPhoto, updateMe);
-userRoute.delete('/deleteMe', deleteMe);
-userRoute.patch('/updateMyPassword', updatePassword);
+userRoute.get("/me", getMe, getUser);
+userRoute.patch("/updateMe", uploadUserPhoto, resizeUserPhoto, updateMe);
+userRoute.delete("/deleteMe", deleteMe);
+userRoute.patch("/updateMyPassword", updatePassword);
 
-userRoute.use(restrictTo('admin'));
+// userRoute.use(restrictTo("admin"));
 
-userRoute.route('/').get(getAllUsers).post(createUser);
-userRoute.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
+userRoute.route("/").get(getAllUsers).post(createUser);
+userRoute.route("/:id").get(getUser).patch(updateUser).delete(deleteUser);
 module.exports = userRoute;

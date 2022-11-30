@@ -9,6 +9,12 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please tell us your name"],
     trim: true,
   },
+  friends_id: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Friend",
+    },
+  ],
   city: {
     type: String,
     trim: true,
