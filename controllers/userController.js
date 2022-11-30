@@ -1,5 +1,6 @@
 const multer = require("multer");
 const sharp = require("sharp");
+const Friend = require("../models/FriendModel");
 const User = require("../models/userModel");
 // const APIFeatures = require('../utils/apiFeatures');
 const AppError = require("../utils/appError");
@@ -99,6 +100,49 @@ exports.createUser = (req, res) => {
     message: "This route is not  defined! Please use sign up instead",
   });
 };
+
+exports.addToFriend = catchAsync(async (req, res, next) => {
+  // await User.findByIdAndUpdate(req.user.id, { active: false });
+  if (!req.body.to_user) {
+    return next(
+      new AppError(
+        "Please provide id of the user , that your are sending request to",
+        400
+      )
+    );
+  }
+
+  const newFriendReq = await Friend.create({
+    from_user: req.user.id,
+    to_user: req.body.to_user,
+  });
+
+  res.status(201).json({
+    status: "Success",
+    data: newFriendReq,
+  });
+});
+exports.getFriendsRequest = catchAsync(async (req, res, next) => {
+  const friendReqs = await Friend.find({
+    from_user: req.user.id,
+  }).populate("to_user");
+
+  res.status(200).json({
+    status: "Success",
+    data: { data: friendReqs },
+  });
+});
+
+exports.getRecomendFriend = catchAsync(async (req, res, next) => {
+  const friendReqs = await Friend.find({
+    from_user: req.user.id,
+  }).populate("to_user");
+
+  res.status(200).json({
+    status: "Success",
+    data: { data: friendReqs },
+  });
+});
 exports.getUser = factory.getOne(User);
 exports.getAllUsers = factory.getAll(User);
 exports.updateUser = factory.updateOne(User);
