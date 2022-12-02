@@ -125,6 +125,7 @@ exports.addToFriend = catchAsync(async (req, res, next) => {
 exports.getFriendsRequest = catchAsync(async (req, res, next) => {
   const friendReqs = await Friend.find({
     from_user: req.user.id,
+    status: "requested",
   }).populate("to_user");
 
   res.status(200).json({
@@ -132,15 +133,29 @@ exports.getFriendsRequest = catchAsync(async (req, res, next) => {
     data: { data: friendReqs },
   });
 });
-
-exports.getRecomendFriend = catchAsync(async (req, res, next) => {
-  const friendReqs = await Friend.find({
-    from_user: req.user.id,
-  }).populate("to_user");
+exports.confirmAFriendRequest = catchAsync(async (req, res, next) => {
+  const friendReqs = await Friend.findByIdAndUpdate(
+    req.body.id,
+    { status: "accepted" },
+    { new: true }
+  );
+  console.log(friendReqs);
 
   res.status(200).json({
     status: "Success",
-    data: { data: friendReqs },
+    data: "Updated",
+  });
+});
+exports.getMyFriend = catchAsync(async (req, res, next) => {
+  const friends = await Friend.find({
+    from_user: req.user.id,
+    status: "accepted",
+  }).populate("to_user");
+  // console.log(friendReqs);
+
+  res.status(200).json({
+    status: "Success",
+    data: friends,
   });
 });
 exports.getUser = factory.getOne(User);
