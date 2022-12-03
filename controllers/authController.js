@@ -28,12 +28,15 @@ const createSendToken = (user, statusCode, req, res) => {
 };
 exports.signup = catchAsync(async (req, res, next) => {
   console.log("here");
-  const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-  });
+
+  // In this APP because we dont have role base access we can provide req.body inside it
+  // const newUser = await User.create({
+  //   name: req.body.name,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  //   passwordConfirm: req.body.passwordConfirm,
+  // });
+  const newUser = await User.create(req.body);
   // const url = ` ${req.protocol}://${req.get("host")}/me`;
   // const url = `https://github.com/Muhammad-Usama-1/node-express-boilerplaete`;
 
