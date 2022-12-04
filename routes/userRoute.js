@@ -9,6 +9,7 @@ const {
   logout,
   isLoggedIn,
   sendIsLoggedIn,
+  getMyProfile,
 } = require("../controllers/authController");
 const {
   getAllUsers,
@@ -41,6 +42,7 @@ userRoute.post("/forgotPassword", forgotPassword);
 userRoute.patch("/resetPassword/:token", resetPassword);
 
 userRoute.use(protect);
+userRoute.get("/my-profile", getMyProfile);
 userRoute.get("/me", getMe, getUser);
 userRoute.patch("/updateMe", uploadUserPhoto, resizeUserPhoto, updateMe);
 userRoute.delete("/deleteMe", deleteMe);

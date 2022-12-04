@@ -223,6 +223,12 @@ exports.isLoggedIn = async (req, res, next) => {
   }
   next();
 };
+exports.getMyProfile = (req, res, next) => {
+  res.status(200).json({
+    // isLoggedIn,
+    user: req.user,
+  });
+};
 exports.sendIsLoggedIn = (req, res, next) => {
   const isLoggedIn = !!req.user;
   const user = req.user ? req.user : null;

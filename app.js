@@ -12,6 +12,7 @@ const userRoute = require("./routes/userRoute");
 const AppEror = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 const postRoute = require("./routes/postRoute");
+const msgRoute = require("./routes/messageRoute");
 // 100 request for same ip in 1 hour
 const limiter = rateLimit({
   max: 100, // Limit each IP to 100 requests per `window` (here, per 60 minutes)
@@ -77,6 +78,7 @@ if (process.env.NODE_ENV === "development") {
 // app.use("/api/v1/tours", tourRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/posts", postRoute);
+app.use("/api/v1/messages", msgRoute);
 
 // app.use("/api/v1/reviews", reviewRoute);
 // app.use("/api/v1/bookings", bookingRoute);

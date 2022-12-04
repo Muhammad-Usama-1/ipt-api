@@ -158,6 +158,7 @@ exports.getMyFriend = catchAsync(async (req, res, next) => {
     data: friends,
   });
 });
+
 exports.getUser = factory.getOne(User);
 exports.getAllUsers = factory.getAll(User);
 exports.updateUser = factory.updateOne(User);
