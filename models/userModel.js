@@ -9,6 +9,14 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please tell us your name"],
     trim: true,
   },
+  firstname: {
+    type: String,
+    trim: true,
+  },
+  lastname: {
+    type: String,
+    trim: true,
+  },
   friends_id: [
     {
       type: mongoose.Schema.ObjectId,

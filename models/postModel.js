@@ -5,6 +5,10 @@ const postSchema = new mongoose.Schema({
     required: [true, "Description is Required"],
     trim: true,
   },
+  photo: {
+    type: String,
+    default: "default.jpg",
+  },
   title: {
     type: String,
     // required: [true, "Title is Required"],

@@ -5,10 +5,18 @@ const {
   getAllUserPost,
   getAllFeed,
 } = require("../controllers/postController");
+const {
+  uploadUserPhoto,
+  resizeUserPhoto,
+} = require("../controllers/userController");
 const postRoute = express.Router();
 
 postRoute.use(protect);
 postRoute.route("/feeds").get(getAllFeed);
-postRoute.route("/").post(createUserPost).get(getAllUserPost);
+postRoute
+  .route("/")
+  .post(uploadUserPhoto, resizeUserPhoto, createUserPost)
+  .get(getAllUserPost);
+// , resizeUserPhoto, updateMe
 
 module.exports = postRoute;
