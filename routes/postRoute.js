@@ -4,6 +4,8 @@ const {
   createUserPost,
   getAllUserPost,
   getAllFeed,
+  uploadPostPhoto,
+  resizePostPhoto,
 } = require("../controllers/postController");
 const {
   uploadUserPhoto,
@@ -15,7 +17,7 @@ postRoute.use(protect);
 postRoute.route("/feeds").get(getAllFeed);
 postRoute
   .route("/")
-  .post(uploadUserPhoto, resizeUserPhoto, createUserPost)
+  .post(uploadPostPhoto, resizePostPhoto, createUserPost)
   .get(getAllUserPost);
 // , resizeUserPhoto, updateMe
 
