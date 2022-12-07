@@ -63,6 +63,6 @@ exports.getAllFeed = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: "Success",
     // message: "Post succefully created",
-    feeds,
+    data: feeds,
   });
 });
