@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
   },
   photo: {
     type: String,
-    default: "default.jpg",
+    // default: "default.jpg",
   },
   title: {
     type: String,
@@ -20,6 +20,7 @@ const postSchema = new mongoose.Schema({
   },
   user_id: {
     type: mongoose.Schema.ObjectId,
+    ref: "User",
     require: [true, "User is required"],
   },
 });
