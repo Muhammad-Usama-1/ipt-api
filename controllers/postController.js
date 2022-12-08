@@ -58,7 +58,13 @@ exports.getAllFeed = catchAsync(async (req, res, next) => {
   //   res.send("post created");
   // const { text } = req.body;
   //   const user_id = req.user.id;
-  const feeds = await Post.find();
+  // BECAUSE SCHEMA REGISTERRD IN DB BEFORE ALL THE FEILD SO ITS GIVEING ERROR IN POPULATION SEPECIFIC FEILD
+  // const feeds = await Post.find().populate("user_id", "name", "photo");
+  const feeds = await Post.find({
+    // Exclude login user posts
+    user_id: { $ne: req.user.id },
+  }).populate("user_id");
+
   //   res.send("post created");
   res.status(201).json({
     status: "Success",
