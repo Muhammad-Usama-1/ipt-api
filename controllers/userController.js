@@ -126,9 +126,9 @@ exports.addToFriend = catchAsync(async (req, res, next) => {
 });
 exports.getFriendsRequest = catchAsync(async (req, res, next) => {
   const friendReqs = await Friend.find({
-    from_user: req.user.id,
+    to_user: req.user.id,
     status: "requested",
-  }).populate("to_user");
+  }).populate("from_user");
 
   res.status(200).json({
     status: "Success",
@@ -150,19 +150,29 @@ exports.confirmAFriendRequest = catchAsync(async (req, res, next) => {
 });
 exports.getMyFriend = catchAsync(async (req, res, next) => {
   const friends = await Friend.find({
-    from_user: req.user.id,
+    $or: [{ from_user: req.user.id }, { to_user: req.user.id }],
     status: "accepted",
-  }).populate("to_user");
-  // console.log(friendReqs);
+  })
+    .populate("to_user")
+    .populate("from_user");
 
   res.status(200).json({
     status: "Success",
     data: friends,
   });
 });
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  // Get all users without loged in
+  const allUsers = await User.find({ _id: { $ne: req.user.id } });
+
+  res.status(200).json({
+    status: "Success",
+    data: allUsers,
+  });
+});
 
 exports.getUser = factory.getOne(User);
-exports.getAllUsers = factory.getAll(User);
+// exports.getAllUsers = factory.getAll(User);
 exports.updateUser = factory.updateOne(User);
 exports.getUser = factory.getOne(User);
 exports.deleteUser = factory.deleteOne(User);

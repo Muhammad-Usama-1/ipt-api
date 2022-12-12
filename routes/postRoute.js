@@ -6,6 +6,7 @@ const {
   getAllFeed,
   uploadPostPhoto,
   resizePostPhoto,
+  getFriendPosts,
 } = require("../controllers/postController");
 const {
   uploadUserPhoto,
@@ -14,6 +15,7 @@ const {
 const postRoute = express.Router();
 
 postRoute.use(protect);
+postRoute.route("/:id").get(getFriendPosts);
 postRoute.route("/feeds").get(getAllFeed);
 postRoute
   .route("/")

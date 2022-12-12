@@ -16,7 +16,6 @@ const signToken = (id, name) =>
 const createSendToken = (user, statusCode, req, res) => {
   // console.log("SECURE--> ", req.secure);
   user.password = undefined;
-  console.log(req.user);
   const token = signToken(user._id, user.name);
   res.status(statusCode).json({
     status: "Success",

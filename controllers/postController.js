@@ -53,6 +53,15 @@ exports.getAllUserPost = catchAsync(async (req, res, next) => {
     data: posts,
   });
 });
+exports.getFriendPosts = catchAsync(async (req, res, next) => {
+  const posts = await Post.find({ user_id: req.params.id }).populate("user_id");
+  //   res.send("post created");
+  res.status(201).json({
+    status: "Success",
+    // message: "Post succefully created",
+    data: posts,
+  });
+});
 
 exports.getAllFeed = catchAsync(async (req, res, next) => {
   //   res.send("post created");
