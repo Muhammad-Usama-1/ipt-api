@@ -28,6 +28,7 @@ const {
   getRecomendFriend,
   confirmAFriendRequest,
   getMyFriend,
+  getFriendById,
 } = require("../controllers/userController");
 const { restrictTo } = require("../controllers/authController");
 
@@ -50,6 +51,8 @@ userRoute.patch("/updateMyPassword", updatePassword);
 userRoute.post("/addFriend", addToFriend);
 userRoute.get("/friendsRequest", getFriendsRequest);
 userRoute.get("/friends", getMyFriend);
+userRoute.get("/friend-by-id", getFriendById);
+
 userRoute.post("/confirmFriendsRequest", confirmAFriendRequest);
 
 // userRoute.use(restrictTo("admin"));

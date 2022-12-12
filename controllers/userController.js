@@ -170,6 +170,23 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     data: allUsers,
   });
 });
+exports.getFriendById = catchAsync(async (req, res, next) => {
+  // Get all users without loged in
+  if (req.params.id) {
+    return next(new AppError("Please provide of the friend in params", 400));
+  }
+  const friends = await Friend.find({
+    $or: [{ from_user: req.params.id }, { to_user: req.params.id }],
+    status: "accepted",
+  })
+    .populate("to_user")
+    .populate("from_user");
+
+  res.status(200).json({
+    status: "Success",
+    data: friends,
+  });
+});
 
 exports.getUser = factory.getOne(User);
 // exports.getAllUsers = factory.getAll(User);
