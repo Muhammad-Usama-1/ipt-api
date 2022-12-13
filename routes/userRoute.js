@@ -29,6 +29,8 @@ const {
   confirmAFriendRequest,
   getMyFriend,
   getFriendById,
+  updateMeContact,
+  getMyPhoto,
 } = require("../controllers/userController");
 const { restrictTo } = require("../controllers/authController");
 
@@ -46,6 +48,9 @@ userRoute.use(protect);
 userRoute.get("/my-profile", getMyProfile);
 userRoute.get("/me", getMe, getUser);
 userRoute.patch("/updateMe", uploadUserPhoto, resizeUserPhoto, updateMe);
+userRoute.patch("/updateMeContact", updateMeContact);
+userRoute.get("/my-photo", getMyPhoto);
+
 userRoute.delete("/deleteMe", deleteMe);
 userRoute.patch("/updateMyPassword", updatePassword);
 userRoute.post("/addFriend", addToFriend);

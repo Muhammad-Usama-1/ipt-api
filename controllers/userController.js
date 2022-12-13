@@ -1,6 +1,7 @@
 const multer = require("multer");
 const sharp = require("sharp");
 const Friend = require("../models/FriendModel");
+const Post = require("../models/postModel");
 const User = require("../models/userModel");
 // const APIFeatures = require('../utils/apiFeatures');
 const AppError = require("../utils/appError");
@@ -83,6 +84,41 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     status: "Success",
     data: {
       user: updatedUser,
+    },
+  });
+  // Update user document
+});
+exports.updateMeContact = catchAsync(async (req, res, next) => {
+  // create an error if user post password data
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(
+      new AppError(
+        "This route is not for password update.Please use updataMyPassword",
+        400
+      )
+    );
+  }
+  // filtered out unwanted fields
+  const filterBody = filterObj(req.body, "social", "url", "contact");
+  if (req.file) filterBody.photo = req.file.filename;
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, filterBody, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(200).json({
+    status: "Success",
+    data: {
+      user: updatedUser,
+    },
+  });
+  // Update user document
+});
+exports.getMyPhoto = catchAsync(async (req, res, next) => {
+  const photos = await Post.find({ user_id: req.user.id }).select("photo");
+  res.status(200).json({
+    status: "Success",
+    data: {
+      photos: photos,
     },
   });
   // Update user document
