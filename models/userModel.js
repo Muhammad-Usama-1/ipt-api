@@ -9,6 +9,19 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please tell us your name"],
     trim: true,
   },
+  contact: {
+    type: String,
+    trim: true,
+  },
+  social: {
+    type: String,
+    trim: true,
+  },
+  url: {
+    type: String,
+    trim: true,
+  },
+
   firstname: {
     type: String,
     trim: true,
