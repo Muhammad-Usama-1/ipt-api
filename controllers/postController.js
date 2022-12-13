@@ -76,7 +76,7 @@ exports.getAllFeed = catchAsync(async (req, res, next) => {
   const feeds = await Post.find({
     // Exclude login user posts
     user_id: { $ne: req.user._id },
-  });
+  }).populate("user_id");
 
   //   res.send("post created");
   res.status(201).json({

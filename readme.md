@@ -52,3 +52,7 @@ PATCH-- > /updateMyPassword',
 userRoute.route('/').get(getAllUsers).post(createUser);
 
 userRoute.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
+
+# TODO
+
+## get photo of loged in user , or user by id
