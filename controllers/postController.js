@@ -2,6 +2,9 @@ const sharp = require("sharp");
 const multer = require("multer");
 const Post = require("../models/postModel");
 const catchAsync = require("../utils/catchAsync");
+const { ObjectId } = require("mongodb");
+
+const Like = require("../models/LikeModel");
 const multerStorage = multer.memoryStorage();
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
@@ -83,5 +86,25 @@ exports.getAllFeed = catchAsync(async (req, res, next) => {
     status: "Success",
     // message: "Post succefully created",
     data: feeds,
+  });
+});
+
+exports.updatePostForLike = catchAsync(async (req, res, next) => {
+  const like = await Like.create({ like: true });
+  const id = ObjectId(like.id);
+  const posts = await Post.updateOne(
+    { _id: req.body.postId },
+    {
+      $push: {
+        likes: req.user._id,
+      },
+    }
+  );
+
+  //   res.send("post created");
+  res.status(201).json({
+    status: "Success",
+    message: "Like succefully",
+    data: posts,
   });
 });

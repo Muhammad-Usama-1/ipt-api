@@ -7,6 +7,7 @@ const {
   uploadPostPhoto,
   resizePostPhoto,
   getFriendPosts,
+  updatePostForLike,
 } = require("../controllers/postController");
 const {
   uploadUserPhoto,
@@ -15,6 +16,7 @@ const {
 const postRoute = express.Router();
 
 postRoute.use(protect);
+postRoute.route("/like").post(updatePostForLike);
 postRoute.route("/feeds").get(getAllFeed);
 postRoute
   .route("/")
