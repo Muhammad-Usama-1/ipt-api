@@ -48,7 +48,9 @@ exports.getAllUserPost = catchAsync(async (req, res, next) => {
   // const { text } = req.body;
   //   const user_id = req.user.id;
 
-  const posts = await Post.find({ user_id: req.user.id }).populate("user_id");
+  const posts = await Post.find({ user_id: req.user.id })
+    .populate("user_id", "_id name photo")
+    .populate("comments.postedBy", "_id name");
   //   res.send("post created");
   res.status(201).json({
     status: "Success",
