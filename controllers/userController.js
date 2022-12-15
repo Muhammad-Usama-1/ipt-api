@@ -151,6 +151,13 @@ exports.addToFriend = catchAsync(async (req, res, next) => {
       )
     );
   }
+  // Check if user is already send a request or a freind to this user
+  const alreadyRequestorFriend = await Friend.findOne({
+    from_user: req.user.id,
+    to_user: req.body.to_user,
+  });
+  if (alreadyRequestorFriend)
+    return next(new AppError("you are already a frined or request to ..", 400));
 
   const newFriendReq = await Friend.create({
     from_user: req.user.id,
