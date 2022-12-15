@@ -79,7 +79,9 @@ exports.getAllFeed = catchAsync(async (req, res, next) => {
   const feeds = await Post.find({
     // Exclude login user posts
     user_id: { $ne: req.user._id },
-  }).populate("user_id");
+  })
+    .populate("user_id", "_id name photo")
+    .populate("comments.postedBy", "_id name");
 
   //   res.send("post created");
   res.status(201).json({
@@ -101,10 +103,31 @@ exports.updatePostForLike = catchAsync(async (req, res, next) => {
     }
   );
 
-  //   res.send("post created");
   res.status(201).json({
     status: "Success",
     message: "Like succefully",
     data: posts,
+  });
+});
+
+exports.commentOnAPost = catchAsync(async (req, res, next) => {
+  console.log(req.body.comment, req.body.postId);
+  const comment = {
+    text: req.body.comment,
+    postedBy: req.user._id,
+  };
+  const result = await Post.findByIdAndUpdate(
+    req.body.postId,
+    { $push: { comments: comment } },
+    {
+      new: true,
+    }
+  );
+  console.log(result);
+
+  res.status(201).json({
+    status: "Success",
+    message: " succefully commented",
+    // data: posts,
   });
 });
