@@ -44,5 +44,6 @@ const postSchema = new mongoose.Schema({
     require: [true, "User is required"],
   },
 });
+
 const Post = mongoose.model("Post", postSchema);
 module.exports = Post;

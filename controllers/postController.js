@@ -118,18 +118,18 @@ exports.commentOnAPost = catchAsync(async (req, res, next) => {
     text: req.body.comment,
     postedBy: req.user._id,
   };
-  const result = await Post.findByIdAndUpdate(
+  const data = await Post.findByIdAndUpdate(
     req.body.postId,
     { $push: { comments: comment } },
     {
       new: true,
     }
-  );
-  console.log(result);
+  ).populate("comments.postedBy", "_id name");
+  // console.log(data);
 
   res.status(201).json({
     status: "Success",
-    message: " succefully commented",
-    // data: posts,
+    // message: " succefully commented",
+    data,
   });
 });
