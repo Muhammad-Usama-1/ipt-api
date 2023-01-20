@@ -198,6 +198,7 @@ exports.getMyFriend = catchAsync(async (req, res, next) => {
     $or: [{ from_user: req.user.id }, { to_user: req.user.id }],
     status: "accepted",
   })
+
     .populate("to_user")
     .populate("from_user");
 
