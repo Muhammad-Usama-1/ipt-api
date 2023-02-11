@@ -8,7 +8,7 @@ const express = require("express");
 // const hpp = require("hpp");
 // const morgan = require("morgan");
 // const rateLimit = require("express-rate-limit");
-// const userRoute = require("./routes/userRoute");
+const userRoute = require("./routes/userRoute");
 // const AppEror = require("./utils/appError");
 // const globalErrorHandler = require("./controllers/errorController");
 // const postRoute = require("./routes/postRoute");
@@ -105,6 +105,8 @@ app.get("/", (req, res) => {
 app.get("/getter", (req, res) => {
   res.send("Express on Vercel , on getter request");
 });
+app.use("/api/v1/users", userRoute);
+
 // Initialize server
 app.listen(process.env.PORT, () => {
   console.log("Running on port process.env.PORT.");
