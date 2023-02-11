@@ -76,6 +76,9 @@ if (process.env.NODE_ENV === "development") {
 
 // app.use("/", viewRouter);
 // app.use("/api/v1/tours", tourRoute);
+app.get("/", (req, res) => {
+  res.send("Express on Vercel");
+});
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/posts", postRoute);
 app.use("/api/v1/messages", msgRoute);
