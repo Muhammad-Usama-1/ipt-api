@@ -73,7 +73,9 @@ app.use(
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-
+app.get("/is-ready", (req, res) => {
+  res.send("API is Ready for consuming!!");
+});
 // app.use("/", viewRouter);
 // app.use("/api/v1/tours", tourRoute);
 app.use("/api/v1/users", userRoute);
