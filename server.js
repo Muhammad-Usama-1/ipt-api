@@ -36,7 +36,7 @@ const server = app.listen(port, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: true,
+    origin: "https://glittery-crostata-66e711.netlify.app/",
     methods: ["GET", "POST"],
   },
 });
