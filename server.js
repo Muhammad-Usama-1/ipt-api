@@ -36,7 +36,7 @@ const server = app.listen(port, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: "https://social-mern-1.netlify.app/",
+	  origin: "https://social-mern.netlify.app/",
     methods: ["GET", "POST"],
   },
 });
