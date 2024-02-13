@@ -26,21 +26,24 @@ const createSendToken = (user, statusCode, req, res) => {
   });
 };
 exports.signup = catchAsync(async (req, res, next) => {
-  console.log("here");
-
+  // console.log("here");
   // In this APP because we dont have role base access we can provide req.body inside it
-  const newUser = await User.create({
-     name: req.body.name,
-     email: req.body.email,
-    password: req.body.password,
-     passwordConfirm: req.body.password,
-  });
+  // const newUser = await User.create({
+  //    name: req.body.name,
+  //    email: req.body.email,
+  //    password: req.body.password,
+  //    passwordConfirm: req.body.password,
+  // });
+
   // const newUser = await User.create(req.body);
   // const url = ` ${req.protocol}://${req.get("host")}/me`;
   // const url = `https://github.com/Muhammad-Usama-1/node-express-boilerplaete`;
 
   // await new Email(newUser, url).sendWelcome();
-  createSendToken(newUser, 201, req, res);
+  // createSendToken(newUser, 201, req, res);
+  return next(
+    new AppError("New Users Signup has been disabled for security reason", 401)
+  );
 });
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
