@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Set Security HTTP header
 app.use(helmet());
 
-app.use(cors());
+
 
 app.use(
   cors({
