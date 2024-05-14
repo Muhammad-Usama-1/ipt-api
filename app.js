@@ -32,15 +32,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // Global Middlewares
 // Set Security HTTP header
 app.use(helmet());
-app.use(
-  cors({
-    credentials: true,
-    // origin: ["https://webtourism.netlify.app"],
-    origin: true,
-    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", "PATCH"],
-  })
-);
-// app.use(cors());
+
+app.use(cors());
 // Limit request from same IP
 app.use("/api", limiter);
 // app.post(
